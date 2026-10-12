@@ -1,0 +1,33 @@
+# =====================================
+# GeoPortfolio - Git Ignore
+# =====================================
+
+# Python y entornos virtuales
+.venv/
+venv/
+__pycache__/
+*.pyc
+
+# Variables de entorno y credenciales
+.env
+.env.*
+!.env.example
+
+# Archivos temporales
+*.log
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Configuración local del editor
+.vscode/
+.idea/
+
+# Datos locales y archivos pesados
+data/*
+!data/.gitkeep
+
+# Copias de seguridad de bases de datos
+*.backup
+*.dump
+*.sql.gz

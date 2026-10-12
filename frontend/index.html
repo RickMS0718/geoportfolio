@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>GeoPortfolio | Ricardo Moreno</title>
+
+    <!-- OpenLayers -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/ol@10.6.1/ol.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/ol@10.6.1/dist/ol.js"></script>
+
+    <!-- Nuestro CSS -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <h1>GeoPortfolio</h1>
+        <p>Ricardo Moreno | Ingeniería Forestal y Geomática</p>
+    </header>
+
+    <main>
+
+        <section id="perfil">
+            <h2>Perfil profesional</h2>
+            <p>
+                Bienvenido a mi GeoPortfolio profesional.
+            </p>
+        </section>
+
+        <section id="mapa">
+            <h2>Experiencia profesional</h2>
+
+            <div id="map"></div>
+            <div id="popup" class="popup">
+                <button id="popup-close" class="popup-close">&times;</button>
+
+                <h3 id="popup-nombre"></h3>
+
+                <p id="popup-ubicacion"></p>
+
+                <a id="popup-url"
+                   href="#"
+                   target="_blank"
+                   rel="noopener noreferrer">
+                    Visitar sitio web
+                </a>
+            </div>
+        </section>
+
+    </main>
+
+    <script src="js/map.js"></script>
+
+</body>
+
+</html>

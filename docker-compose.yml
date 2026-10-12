@@ -1,0 +1,40 @@
+services:
+  db:
+    image: postgis/postgis:17-3.5
+    container_name: geoportfolio-db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5433:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    restart: unless-stopped
+
+
+  geoserver:
+    image: kartoza/geoserver:2.27.2
+    container_name: geoportfolio-geoserver
+
+    environment:
+      GEOSERVER_ADMIN_USER: ${GEOSERVER_ADMIN_USER}
+      GEOSERVER_ADMIN_PASSWORD: ${GEOSERVER_ADMIN_PASSWORD}
+
+    ports:
+      - "8080:8080"
+
+    volumes:
+      - geoserver_data:/opt/geoserver/data_dir
+
+    depends_on:
+      - db
+
+    restart: unless-stopped
+
+
+volumes:
+  postgres_data:
+  geoserver_data:
