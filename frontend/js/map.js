@@ -97,6 +97,13 @@ const popupElement = document.getElementById('popup');
 const popupNombre = document.getElementById('popup-nombre');
 const popupUbicacion = document.getElementById('popup-ubicacion');
 const popupUrl = document.getElementById('popup-url');
+// Elementos del popup para la experiencia profesional
+const popupExperiencia = document.getElementById('popup-experiencia');
+const popupRol = document.getElementById('popup-rol');
+const popupPeriodo = document.getElementById('popup-periodo');
+const popupDescripcion = document.getElementById('popup-descripcion');
+const popupTecnologias = document.getElementById('popup-tecnologias');
+const popupConocimientos = document.getElementById('popup-conocimientos');
 const popupClose = document.getElementById('popup-close');
 
 const popup = new ol.Overlay({
@@ -126,6 +133,7 @@ entidadesSource.on('featuresloadend', function () {
 // 7. MOSTRAR INFORMACIÓN DE LA ENTIDAD
 // --------------------------------------------------
 
+
 map.on('singleclick', function (event) {
 
     const feature = map.forEachFeatureAtPixel(
@@ -139,13 +147,56 @@ map.on('singleclick', function (event) {
 
         const propiedades = feature.getProperties();
 
+        // Obtener el ID de la entidad desde GeoServer
+        const idGeoServer = feature.getId();
+
+        const entidadId = Number(
+            String(idGeoServer).split('.').pop()
+        );
+
+        // Buscar la experiencia en los datos de Django
+        const experiencia = experienciasPorEntidad.get(entidadId);
+
+        // Información geográfica
         popupNombre.textContent = propiedades.nombre;
 
         popupUbicacion.textContent =
             propiedades.ciudad + ', ' + propiedades.pais;
 
-        popupUrl.href = propiedades.url;
+        popupUrl.href = propiedades.url || '#';
 
+        // Información profesional
+        if (experiencia) {
+
+            popupExperiencia.style.display = 'block';
+
+            popupRol.textContent = experiencia.rol || '';
+
+            popupPeriodo.textContent = experiencia.periodo || '';
+
+            popupDescripcion.textContent =
+                experiencia.descripcion || '';
+
+            // Tecnologías
+            popupTecnologias.textContent =
+                (experiencia.tecnologias || []).join(' · ');
+
+            // Conocimientos
+            popupConocimientos.textContent =
+                (experiencia.conocimientos || []).join(' · ');
+
+        } else {
+
+            // Si todavía no se han cargado los datos de Django
+            popupExperiencia.style.display = 'none';
+
+            console.warn(
+                'No se encontró experiencia para la entidad:',
+                entidadId
+            );
+        }
+
+        // Mostrar el popup
         popupElement.style.display = 'block';
 
         popup.setPosition(event.coordinate);
@@ -158,6 +209,7 @@ map.on('singleclick', function (event) {
     }
 
 });
+
 
 // --------------------------------------------------
 // 8. CERRAR POPUP
@@ -212,3 +264,56 @@ map.on('pointermove', function (event) {
         feature ? 'pointer' : '';
 
 });
+
+// --------------------------------------------------
+// 9. CONSULTAR EXPERIENCIAS DESDE DJANGO
+// --------------------------------------------------
+
+const API_EXPERIENCIAS =
+    'http://127.0.0.1:8000/api/experiencias/';
+
+// Guardar las experiencias utilizando entidad_id como clave
+const experienciasPorEntidad = new Map();
+
+async function cargarExperiencias() {
+    try {
+        const respuesta = await fetch(API_EXPERIENCIAS);
+
+        if (!respuesta.ok) {
+            throw new Error(`Error HTTP: ${respuesta.status}`);
+        }
+
+        const datos = await respuesta.json();
+
+        // Asociar cada experiencia con su entidad
+        datos.experiencias.forEach(experiencia => {
+            experienciasPorEntidad.set(
+                Number(experiencia.entidad_id),
+                experiencia
+            );
+        });
+
+        console.log(
+            'Experiencias organizadas por entidad:',
+            experienciasPorEntidad
+        );
+
+        console.log(
+            'Experiencia asociada a entidad 1:',
+            experienciasPorEntidad.get(1)
+        );
+
+        console.log(
+            'Experiencias recibidas desde Django:',
+            datos.experiencias
+        );
+
+    } catch (error) {
+        console.error(
+            'Error al consultar la API de Django:',
+            error
+        );
+    }
+}
+
+cargarExperiencias();

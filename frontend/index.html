@@ -38,20 +38,47 @@
             <h2>Experiencia profesional</h2>
 
             <div id="map"></div>
+            
             <div id="popup" class="popup">
-                <button id="popup-close" class="popup-close">&times;</button>
-
+            
+                <button id="popup-close"
+                        class="popup-close"
+                        aria-label="Cerrar ventana">
+                    &times;
+                </button>
+            
+                <!-- Información de la entidad -->
                 <h3 id="popup-nombre"></h3>
-
+            
                 <p id="popup-ubicacion"></p>
-
+            
+                <!-- Experiencia profesional -->
+                <div id="popup-experiencia">
+                
+                    <h4 id="popup-rol"></h4>
+                
+                    <p id="popup-periodo"></p>
+                
+                    <p id="popup-descripcion"></p>
+                
+                    <h4>Tecnologías utilizadas</h4>
+                    <div id="popup-tecnologias"></div>
+                
+                    <h4>Conocimientos aplicados</h4>
+                    <div id="popup-conocimientos"></div>
+                
+                </div>
+            
+                <!-- Enlace institucional -->
                 <a id="popup-url"
                    href="#"
                    target="_blank"
                    rel="noopener noreferrer">
                     Visitar sitio web
                 </a>
-            </div>
+
+        </div>
+
         </section>
 
     </main>
