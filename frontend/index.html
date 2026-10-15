@@ -20,55 +20,120 @@
 
 <body>
 
-    <header>
-        <h1>GeoPortfolio</h1>
-        <p>Ricardo Moreno | Ingeniería Forestal y Geomática</p>
+    
+    <!-- Cabecera principal -->
+    <header class="site-header">
+    
+        <div class="header-container">
+        
+            <a href="#perfil" class="logo">
+                Geo<span>Portfolio</span>
+            </a>
+        
+            <nav class="main-nav" aria-label="Navegación principal">
+                <a href="#perfil">Perfil</a>
+                <a href="#mapa">Experiencia</a>
+                <a href="#formacion">Formación</a>
+            </nav>
+        
+        </div>
+    
     </header>
+
 
     <main>
 
-        <section id="perfil">
-            <h2>Perfil profesional</h2>
-            <p>
-                Bienvenido a mi GeoPortfolio profesional.
-            </p>
+
+        <!-- Presentación profesional -->
+        <section id="perfil" class="hero">
+
+            <div class="hero-content">
+
+                <p class="hero-eyebrow">
+                    INGENIERÍA FORESTAL · GEOMÁTICA · GEOINFORMACIÓN
+                </p>
+
+                <h1>
+                    Ricardo Moreno
+                </h1>
+
+                <h2>
+                    Desarrollador y Analista GIS
+                </h2>
+
+                <p class="hero-description">
+                    Ingeniero Forestal y Máster en Ingeniería Geomática
+                    y Geoinformación, con más de ocho años de experiencia
+                    en análisis espacial, gestión de información geográfica
+                    y desarrollo de soluciones geoespaciales aplicadas
+                    al medio ambiente y la gestión del territorio.
+                </p>
+
+                <div class="hero-skills">
+                    <span>SIG</span>
+                    <span>Teledetección</span>
+                    <span>Python</span>
+                    <span>PostGIS</span>
+                    <span>Machine Learning</span>
+                </div>
+
+                <a href="#mapa" class="hero-button">
+                    Explorar mi experiencia
+                </a>
+
+            </div>
+
         </section>
 
-        <section id="mapa">
-            <h2>Experiencia profesional</h2>
+        <section id="mapa" class="experience-section">
 
-            <div id="map"></div>
-            
+            <div class="section-heading">
+                <p class="section-eyebrow">MI TRAYECTORIA</p>
+
+                <h2>Experiencia profesional</h2>
+
+                <p class="section-description">
+                    Explora las instituciones y organizaciones en las que
+                    he desarrollado mi trayectoria profesional.
+                    Selecciona un punto del mapa para conocer mis funciones,
+                    tecnologías y conocimientos aplicados.
+                </p>
+            </div>
+
+            <div class="map-container">
+                <div id="map"></div>
+            </div>
+
             <div id="popup" class="popup">
-            
+
                 <button id="popup-close"
                         class="popup-close"
                         aria-label="Cerrar ventana">
                     &times;
                 </button>
-            
+
                 <!-- Información de la entidad -->
                 <h3 id="popup-nombre"></h3>
-            
+
                 <p id="popup-ubicacion"></p>
-            
+
                 <!-- Experiencia profesional -->
                 <div id="popup-experiencia">
-                
+
                     <h4 id="popup-rol"></h4>
-                
+
                     <p id="popup-periodo"></p>
-                
+
                     <p id="popup-descripcion"></p>
-                
+
                     <h4>Tecnologías utilizadas</h4>
                     <div id="popup-tecnologias"></div>
-                
+
                     <h4>Conocimientos aplicados</h4>
                     <div id="popup-conocimientos"></div>
-                
+
                 </div>
-            
+
                 <!-- Enlace institucional -->
                 <a id="popup-url"
                    href="#"
@@ -77,13 +142,35 @@
                     Visitar sitio web
                 </a>
 
-        </div>
+            </div>
+
+        </section>
+
+        <!-- Formación académica -->
+        <section id="formacion" class="education-section">
+
+            <div class="section-heading">
+                <p class="section-eyebrow">MI FORMACIÓN</p>
+
+                <h2>Formación académica</h2>
+
+                <p class="section-description">
+                    Mi trayectoria académica combina la ingeniería forestal,
+                    el análisis espacial y las tecnologías geomáticas.
+                </p>
+            </div>
+
+            <!-- Las tarjetas se generan desde Django -->
+            <div id="formaciones-container" class="education-grid">
+                <p>Cargando formación académica...</p>
+            </div>
 
         </section>
 
     </main>
 
     <script src="js/map.js"></script>
+    <script src="js/formacion.js"></script>
 
 </body>
 

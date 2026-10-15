@@ -242,3 +242,548 @@ section {
     font-weight: 500;
     line-height: 1.4;
 }
+
+
+/* ==========================================
+   80.3 - CABECERA Y PRESENTACIÓN PROFESIONAL
+   ========================================== */
+
+/* Desplazamiento suave entre secciones */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Cabecera principal */
+.site-header {
+    background-color: #14263d;
+    color: #ffffff;
+    padding: 0 30px;
+    border-bottom: none;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    min-height: 76px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+/* Logotipo */
+.logo {
+    color: #ffffff;
+    font-size: 23px;
+    font-weight: 700;
+    text-decoration: none;
+    letter-spacing: -0.5px;
+}
+
+.logo span {
+    color: #38bdf8;
+}
+
+/* Navegación */
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.main-nav a {
+    color: #dbeafe;
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+    color: #38bdf8;
+}
+
+/* Presentación profesional */
+.hero {
+    background: linear-gradient(
+        135deg,
+        #14263d 0%,
+        #1e3a5f 65%,
+        #164e63 100%
+    );
+
+    color: #ffffff;
+    padding: 85px 50px 95px;
+    border-radius: 0 0 18px 18px;
+}
+
+.hero-content {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.hero-eyebrow {
+    color: #7dd3fc;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    color: #ffffff;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 700;
+    line-height: 1.15;
+    margin: 0 0 12px;
+}
+
+.hero h2 {
+    color: #bae6fd;
+    font-size: clamp(19px, 2.5vw, 27px);
+    font-weight: 400;
+    margin: 0 0 25px;
+}
+
+.hero-description {
+    max-width: 760px;
+    color: #e2e8f0;
+    font-size: 16px;
+    line-height: 1.8;
+    margin-bottom: 30px;
+}
+
+/* Especialidades */
+.hero-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.hero-skills span {
+    background-color: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 20px;
+    color: #f0f9ff;
+    font-size: 13px;
+    padding: 7px 14px;
+}
+
+/* Botón principal */
+.hero-button {
+    display: inline-block;
+    padding: 13px 24px;
+    background-color: #38bdf8;
+    color: #082f49;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.hero-button:hover {
+    background-color: #7dd3fc;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 600px) {
+
+    .site-header {
+        padding: 0 18px;
+    }
+
+    .header-container {
+        min-height: 68px;
+        flex-wrap: wrap;
+        padding: 12px 0;
+    }
+
+    .logo {
+        font-size: 20px;
+    }
+
+    .main-nav {
+        gap: 16px;
+    }
+
+    .main-nav a {
+        font-size: 13px;
+    }
+
+    .hero {
+        padding: 55px 24px 65px;
+    }
+
+    .hero-eyebrow {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-skills {
+        gap: 8px;
+    }
+}
+
+
+/* ==========================================
+   EXPERIENCIA PROFESIONAL Y MAPA
+   ========================================== */
+
+.experience-section {
+    max-width: 1200px;
+    margin: 0 auto 60px;
+    padding: 55px 0 20px;
+}
+
+.section-heading {
+    max-width: 780px;
+    margin-bottom: 30px;
+}
+
+.section-eyebrow {
+    color: #0284c7;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.section-heading h2 {
+    color: #14263d;
+    font-size: clamp(26px, 3vw, 36px);
+    margin: 0 0 15px;
+}
+
+.section-description {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.8;
+    margin: 0;
+}
+
+/* Contenedor del mapa */
+.map-container {
+    overflow: hidden;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 8px 28px rgba(15, 23, 42, 0.08);
+    background-color: #ffffff;
+}
+
+.experience-section #map {
+    width: 100%;
+    height: 550px;
+    background-color: #e2e8f0;
+}
+
+/* Adaptación móvil */
+@media (max-width: 600px) {
+    .experience-section {
+        padding-top: 35px;
+    }
+
+    .section-description {
+        font-size: 14px;
+    }
+
+    .experience-section #map {
+        height: 420px;
+    }
+}
+
+
+/* ==========================================
+   DISTRIBUCIÓN GENERAL
+   ========================================== */
+
+/* El contenido principal ocupa todo el ancho */
+main {
+    padding: 0;
+}
+
+/* La presentación se une visualmente a la cabecera */
+.hero {
+    margin-bottom: 0;
+}
+
+/* El mapa conserva márgenes laterales */
+.experience-section {
+    width: calc(100% - 60px);
+    box-sizing: border-box;
+}
+
+/* Ajustes para pantallas pequeñas */
+@media (max-width: 600px) {
+
+    .experience-section {
+        width: calc(100% - 36px);
+    }
+
+}
+
+
+/* ==========================================
+   81.7 - FORMACIÓN ACADÉMICA
+   ========================================== */
+
+/* Sección general */
+.education-section {
+    max-width: 1200px;
+    width: calc(100% - 60px);
+    box-sizing: border-box;
+    margin: 0 auto 80px;
+    padding: 35px 0 20px;
+}
+
+/* Distribución de tarjetas */
+.education-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 22px;
+}
+
+/* Tarjeta individual */
+.education-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 25px;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 14px;
+    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.05);
+    transition: transform 0.2s ease,
+                box-shadow 0.2s ease;
+}
+
+.education-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
+}
+
+/* Etiqueta del tipo de formación */
+.education-type {
+    align-self: flex-start;
+    display: inline-block;
+    padding: 5px 11px;
+    margin-bottom: 18px;
+    background-color: #e0f2fe;
+    color: #0369a1;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Título académico */
+.education-card h3 {
+    color: #14263d;
+    font-size: 18px;
+    line-height: 1.4;
+    margin: 0 0 12px;
+    overflow-wrap: anywhere;
+}
+
+/* Institución */
+.education-institution {
+    color: #475569;
+    font-size: 14px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+}
+
+/* Periodo */
+.education-period {
+    color: #0284c7;
+    font-size: 13px;
+    font-weight: 600;
+    margin: auto 0 8px;
+    padding-top: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Ubicación */
+.education-location {
+    color: #64748b;
+    font-size: 13px;
+    margin: 0;
+}
+
+/* Tabletas */
+@media (max-width: 900px) {
+    .education-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    .education-section {
+        width: calc(100% - 36px);
+        padding-top: 20px;
+    }
+
+    .education-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+
+    .education-card {
+        padding: 20px;
+    }
+}
+
+
+/* ==========================================
+   82.5 - TRABAJOS ACADÉMICOS
+   ========================================== */
+
+/* Contenedor de trabajos dentro de cada tarjeta */
+.education-works {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* Cada trabajo académico */
+.education-work {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    padding: 16px;
+    background-color: #f8fafc;
+    border: 1px solid #e2e8f0;
+    border-radius: 10px;
+}
+
+/* Separación si hay varios trabajos */
+.education-work + .education-work {
+    margin-top: 12px;
+}
+
+/* Tipo de trabajo */
+.education-work h4 {
+    margin: 0;
+    color: #0284c7;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+/* Título del trabajo */
+.education-work-title {
+    margin: 0;
+    color: #1e293b;
+    font-size: 13px;
+    font-weight: 600;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Año */
+.education-work-year {
+    color: #64748b;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Enlace al documento */
+.education-work-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 4px;
+
+    color: #0369a1;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.5;
+    text-decoration: none;
+    overflow-wrap: anywhere;
+}
+
+.education-work-link:hover {
+    color: #075985;
+    text-decoration: underline;
+}
+
+.education-work-link:focus-visible {
+    outline: 2px solid #0284c7;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+
+/* ==========================================
+   82.6 - ETIQUETAS DE TRABAJOS ACADÉMICOS
+   ========================================== */
+
+.education-work-subtitle {
+    margin: 8px 0 0;
+    color: #475569;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.education-work-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: 100%;
+}
+
+/* Evitar que las etiquetas largas desborden */
+.education-work-tags span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+}
+
+
+/* ==========================================
+   82.8 - DETALLES DESPLEGABLES
+   ========================================== */
+
+.education-work-details {
+    width: 100%;
+    margin-top: 4px;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 12px;
+}
+
+.education-work-details summary {
+    color: #0369a1;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    line-height: 1.5;
+}
+
+.education-work-details summary:hover {
+    color: #075985;
+    text-decoration: underline;
+}
+
+.education-work-details summary:focus-visible {
+    outline: 2px solid #0284c7;
+    outline-offset: 3px;
+    border-radius: 3px;
+}
+
+.education-work-description {
+    margin: 12px 0 0;
+    color: #475569;
+    font-size: 13px;
+    line-height: 1.7;
+    overflow-wrap: anywhere;
+}
