@@ -109,8 +109,14 @@ const popupClose = document.getElementById('popup-close');
 const popup = new ol.Overlay({
     element: popupElement,
     positioning: 'bottom-center',
-    offset: [0, -12],
-    stopEvent: true
+    stopEvent: true,
+
+    autoPan: {
+        animation: {
+            duration: 250
+        },
+        margin: 25
+    }
 });
 
 map.addOverlay(popup);
@@ -177,13 +183,36 @@ map.on('singleclick', function (event) {
             popupDescripcion.textContent =
                 experiencia.descripcion || '';
 
-            // Tecnologías
-            popupTecnologias.textContent =
-                (experiencia.tecnologias || []).join(' · ');
+            // Tecnologías como etiquetas individuales
+            popupTecnologias.replaceChildren();
 
-            // Conocimientos
-            popupConocimientos.textContent =
-                (experiencia.conocimientos || []).join(' · ');
+            (experiencia.tecnologias || []).forEach(tecnologia => {
+            
+                const etiqueta = document.createElement('span');
+            
+                etiqueta.className = 'tecnologia-tag';
+                etiqueta.textContent = tecnologia;
+            
+                popupTecnologias.appendChild(etiqueta);
+            
+            });
+
+            // -----------------------------------------
+            // Conocimientos como etiquetas individuales
+            // -----------------------------------------
+                    
+            popupConocimientos.replaceChildren();
+                    
+            (experiencia.conocimientos || []).forEach(conocimiento => {
+            
+                const etiqueta = document.createElement('span');
+            
+                etiqueta.className = 'conocimiento-tag';
+                etiqueta.textContent = conocimiento;
+            
+                popupConocimientos.appendChild(etiqueta);
+            
+            });
 
         } else {
 

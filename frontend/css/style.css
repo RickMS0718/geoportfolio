@@ -42,38 +42,203 @@ section {
     background-color: #dddddd;
 }
 
-/* Popup de las entidades */
+
+/* -----------------------------------------
+   POPUP DE EXPERIENCIAS PROFESIONALES
+----------------------------------------- */
 
 .popup {
     position: absolute;
     display: none;
 
-    background-color: white;
-    padding: 15px;
+    background-color: #ffffff;
+    color: #1f2937;
 
-    min-width: 220px;
+    width: 340px;
+    max-width: calc(100vw - 40px);
+    max-height: 380px;
+    overflow-y: auto;
+    box-sizing: border-box;
 
-    border: 1px solid #cccccc;
-    border-radius: 8px;
+    padding: 22px;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.5;
 }
 
+/* Nombre de la entidad */
 .popup h3 {
-    margin-top: 0;
-    padding-right: 20px;
+    margin: 0 25px 5px 0;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.3;
 }
 
+/* Ubicación */
+#popup-ubicacion {
+    margin: 0 0 15px 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+/* Botón de cierre */
 .popup-close {
-    position: absolute;
-    top: 5px;
-    right: 8px;
+    position: sticky;
+    top: 0;
+
+    display: block;
+    margin: -8px -8px 0 auto;
+    padding: 4px 8px;
 
     border: none;
-    background: none;
+    border-radius: 6px;
 
-    font-size: 20px;
+    background-color: #ffffff;
+    color: #6b7280;
+
+    font-size: 24px;
+    line-height: 1;
+
     cursor: pointer;
+    z-index: 10;
 }
 
-.popup a {
+.popup-close:hover {
+    background-color: #f3f4f6;
+    color: #111827;
+}
+
+.popup-close:hover {
+    color: #111827;
+}
+
+/* Separación de la experiencia */
+#popup-experiencia {
+    border-top: 1px solid #e5e7eb;
+    padding-top: 12px;
+}
+
+/* Cargo profesional */
+#popup-rol {
+    margin: 0 0 4px 0;
+    font-size: 15px;
+    font-weight: 700;
+    color: #2563eb;
+}
+
+/* Periodo */
+#popup-periodo {
+    margin: 0 0 12px 0;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+/* Descripción profesional */
+#popup-descripcion {
+    margin: 0 0 15px 0;
+    font-size: 13px;
+    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Títulos de tecnologías y conocimientos */
+#popup-experiencia h4 {
+    margin: 14px 0 6px 0;
+    font-size: 13px;
+    font-weight: 700;
+    color: #374151;
+}
+
+/* Tecnologías */
+#popup-tecnologias {
+    font-size: 12px;
+    color: #374151;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* Conocimientos */
+#popup-conocimientos {
+    font-size: 12px;
+    color: #4b5563;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+}
+
+/* Enlace institucional */
+#popup-url {
+    display: inline-block;
+    margin-top: 16px;
+
+    color: #2563eb;
+    font-size: 13px;
+    font-weight: 600;
     text-decoration: none;
+}
+
+#popup-url:hover {
+    text-decoration: underline;
+}
+
+/* Adaptación a pantallas pequeñas */
+@media (max-width: 480px) {
+    .popup {
+        width: 280px;
+        max-height: 300px;
+        padding: 16px;
+    }
+}
+
+/* Etiquetas de tecnologías */
+
+#popup-tecnologias {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.tecnologia-tag {
+    display: inline-block;
+    padding: 4px 9px;
+
+    background-color: #eff6ff;
+    color: #1d4ed8;
+
+    border: 1px solid #dbeafe;
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+/* -----------------------------------------
+   ETIQUETAS DE CONOCIMIENTOS
+----------------------------------------- */
+
+#popup-conocimientos {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.conocimiento-tag {
+    display: inline-block;
+    padding: 4px 9px;
+
+    background-color: #ecfdf5;
+    color: #047857;
+
+    border: 1px solid #a7f3d0;
+    border-radius: 6px;
+
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.4;
 }
