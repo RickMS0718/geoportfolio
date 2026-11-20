@@ -71,13 +71,57 @@ async function cargarFormaciones() {
                 formacion.pais
             ].filter(Boolean).join(', ');
 
-            tarjeta.append(
+            
+            /* ==========================================
+               TARJETA ACADÉMICA DESPLEGABLE
+               ========================================== */
+                    
+            // Crear contenedor desplegable
+            const detallesFormacion = document.createElement('details');
+            detallesFormacion.className = 'education-details';
+                    
+            // Crear encabezado interactivo
+            const encabezado = document.createElement('summary');
+            encabezado.className = 'education-summary';
+                    
+            // Contenedor del texto del encabezado
+            const encabezadoContenido = document.createElement('div');
+            encabezadoContenido.className = 'education-summary-content';
+                    
+            // Texto que indica la acción
+            const accion = document.createElement('span');
+            accion.className = 'education-toggle';
+            accion.textContent = 'Ver detalles de formación';
+                    
+            // Agrupar la información visible
+            encabezadoContenido.append(
                 tipo,
                 titulo,
                 institucion,
-                periodo,
-                ubicacion
+                periodo
             );
+            
+            // Añadir encabezado y acción
+            encabezado.append(
+                encabezadoContenido,
+                accion
+            );
+            
+            // Contenedor de información desplegable
+            const contenidoDetalles = document.createElement('div');
+            contenidoDetalles.className = 'education-details-content';
+            
+            // La ubicación estará dentro del desplegable
+            contenidoDetalles.appendChild(ubicacion);
+            
+            // Añadir los elementos a la tarjeta
+            detallesFormacion.append(
+                encabezado,
+                contenidoDetalles
+            );
+            
+            tarjeta.appendChild(detallesFormacion);
+            
 
             // Añadir trabajos asociados a la formación
             const trabajos =
@@ -183,7 +227,7 @@ async function cargarFormaciones() {
                     seccionTrabajos.appendChild(bloque);
                 });
 
-                tarjeta.appendChild(seccionTrabajos);
+                contenidoDetalles.appendChild(seccionTrabajos);
             }
 
             formacionesContainer.appendChild(tarjeta);

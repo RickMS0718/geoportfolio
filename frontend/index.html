@@ -44,46 +44,58 @@
     <main>
 
 
+
         <!-- Presentación profesional -->
         <section id="perfil" class="hero">
-
-            <div class="hero-content">
-
-                <p class="hero-eyebrow">
-                    INGENIERÍA FORESTAL · GEOMÁTICA · GEOINFORMACIÓN
-                </p>
-
-                <h1>
-                    Ricardo Moreno
-                </h1>
-
-                <h2>
-                    Desarrollador y Analista GIS
-                </h2>
-
-                <p class="hero-description">
-                    Ingeniero Forestal y Máster en Ingeniería Geomática
-                    y Geoinformación, con más de ocho años de experiencia
-                    en análisis espacial, gestión de información geográfica
-                    y desarrollo de soluciones geoespaciales aplicadas
-                    al medio ambiente y la gestión del territorio.
-                </p>
-
-                <div class="hero-skills">
-                    <span>SIG</span>
-                    <span>Teledetección</span>
-                    <span>Python</span>
-                    <span>PostGIS</span>
-                    <span>Machine Learning</span>
+        
+            <div class="hero-layout">
+            
+                <!-- Columna izquierda: información profesional -->
+                <div class="hero-content">
+                
+                    <p class="hero-eyebrow">
+                        INGENIERÍA FORESTAL · ANÁLISIS ESPACIAL · GEOMÁTICA Y GEOINFORMACIÓN
+                    </p>
+                
+                    <h1>Ricardo Moreno</h1>
+                
+                    <h2>Desarrollador y Analista GIS</h2>
+                
+                    <p class="hero-description">
+                        Ingeniero Forestal y Máster en Ingeniería Geomática
+                        y Geoinformación, con más de ocho años de experiencia
+                        en análisis espacial, gestión de información geográfica
+                        y desarrollo de soluciones geoespaciales aplicadas
+                        al medio ambiente y la gestión del territorio.
+                    </p>
+                
+                    <div class="hero-skills">
+                        <span>SIG</span>
+                        <span>Teledetección</span>
+                        <span>Python</span>
+                        <span>PostGIS</span>
+                        <span>Machine Learning</span>
+                    </div>
+                
+                    <a href="#mapa" class="hero-button">
+                        Explorar mi experiencia
+                    </a>
+                
                 </div>
-
-                <a href="#mapa" class="hero-button">
-                    Explorar mi experiencia
-                </a>
-
+            
+                <!-- Columna derecha: fotografía -->
+                <div class="hero-image">
+                    <img
+                        src="img/perfil.jpg"
+                        alt="Fotografía de Ricardo Moreno"
+                        class="profile-photo"
+                    >
+                </div>
+            
             </div>
-
+        
         </section>
+
 
         <section id="mapa" class="experience-section">
 
@@ -104,45 +116,76 @@
                 <div id="map"></div>
             </div>
 
-            <div id="popup" class="popup">
 
+            <div id="popup" class="popup">
+            
+                <!-- Botón para cerrar el popup -->
                 <button id="popup-close"
                         class="popup-close"
                         aria-label="Cerrar ventana">
                     &times;
                 </button>
-
-                <!-- Información de la entidad -->
-                <h3 id="popup-nombre"></h3>
-
-                <p id="popup-ubicacion"></p>
-
-                <!-- Experiencia profesional -->
-                <div id="popup-experiencia">
-
-                    <h4 id="popup-rol"></h4>
-
-                    <p id="popup-periodo"></p>
-
-                    <p id="popup-descripcion"></p>
-
-                    <h4>Tecnologías utilizadas</h4>
-                    <div id="popup-tecnologias"></div>
-
-                    <h4>Conocimientos aplicados</h4>
-                    <div id="popup-conocimientos"></div>
-
+            
+                <!-- ======================================
+                     LISTADO DE ENTIDADES AGRUPADAS
+                     ====================================== -->
+                <div id="popup-grupo" class="popup-grupo" hidden>
+                
+                    <h3>Entidades agrupadas</h3>
+                
+                    <p>Selecciona una institución para ver su experiencia:</p>
+                
+                    <div id="popup-lista-entidades"></div>
+                
                 </div>
-
-                <!-- Enlace institucional -->
+            
+                <!-- ======================================
+                     DETALLE DE UNA ENTIDAD INDIVIDUAL
+                     ====================================== -->
+                <div id="popup-detalle">
+                    <button id="popup-volver"
+                            class="popup-volver"
+                            type="button"
+                            hidden>
+                        ← Volver a las entidades
+                    </button>
+                
+                    <!-- Información de la entidad -->
+                    <h3 id="popup-nombre"></h3>
+                
+                    <p id="popup-ubicacion"></p>
+                
+                    <!-- Experiencia profesional -->
+                    <div id="popup-experiencia">
+                    
+                        <h4 id="popup-rol"></h4>
+                    
+                        <p id="popup-periodo"></p>
+                    
+                        <p id="popup-descripcion"></p>
+                    
+                        <h4>Tecnologías utilizadas</h4>
+                        <div id="popup-tecnologias"></div>
+                    
+                        <h4>Conocimientos aplicados</h4>
+                        <div id="popup-conocimientos"></div>
+                    
+                    </div>
+                
+                </div>
+            
+                <!-- Conserva aquí tu enlace existente popup-url -->
                 <a id="popup-url"
                    href="#"
                    target="_blank"
                    rel="noopener noreferrer">
                     Visitar sitio web
                 </a>
-
+            
             </div>
+
+
+
 
         </section>
 

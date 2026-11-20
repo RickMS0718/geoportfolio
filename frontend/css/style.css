@@ -787,3 +787,345 @@ main {
     line-height: 1.7;
     overflow-wrap: anywhere;
 }
+
+
+/* ==========================================
+   84.2 - FOTOGRAFÍA DE PERFIL
+   ========================================== */
+
+.hero-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+    align-items: center;
+    gap: 60px;
+
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.hero-content {
+    min-width: 0;
+}
+
+.hero-image {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.profile-photo {
+    display: block;
+    width: 100%;
+    max-width: 350px;
+    height: 420px;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.15);
+
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: translateY(-5px);
+}
+
+/* Tablets */
+@media (max-width: 900px) {
+    .hero-layout {
+        gap: 30px;
+    }
+
+    .profile-photo {
+        height: 350px;
+    }
+}
+
+/* Móviles */
+@media (max-width: 600px) {
+    .hero-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .hero-image {
+        justify-content: center;
+    }
+
+    .profile-photo {
+        max-width: 280px;
+        height: 330px;
+    }
+}
+
+
+/* ==========================================
+   86.2 - FORMACIÓN ACADÉMICA DESPLEGABLE
+   ========================================== */
+
+.education-card {
+    padding: 0;
+    overflow: hidden;
+    height: fit-content;
+}
+
+.education-details {
+    width: 100%;
+}
+
+.education-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    cursor: pointer;
+    list-style: none;
+}
+
+.education-summary::-webkit-details-marker {
+    display: none;
+}
+
+.education-summary::marker {
+    content: "";
+}
+
+.education-summary-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.education-summary .education-period {
+    margin-top: 12px;
+    width: 100%;
+}
+
+.education-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    color: #0284c7;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.education-toggle::after {
+    content: "⌄";
+    font-size: 22px;
+    transition: transform 0.2s ease;
+}
+
+.education-details[open] .education-toggle::after {
+    transform: rotate(180deg);
+}
+
+.education-details[open] .education-toggle {
+    font-size: 0;
+}
+
+.education-details[open] .education-toggle::before {
+    content: "Ocultar detalles de formación";
+    font-size: 12px;
+}
+
+.education-details-content {
+    padding: 0 24px 24px;
+}
+
+.education-details-content .education-location {
+    margin-bottom: 16px;
+}
+
+.education-details-content .education-works {
+    margin-top: 0;
+}
+
+.education-summary:focus-visible {
+    outline: 2px solid #0284c7;
+    outline-offset: -4px;
+    border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+    .education-summary {
+        padding: 20px;
+    }
+
+    .education-details-content {
+        padding: 0 20px 20px;
+    }
+}
+
+/* ==========================================
+   86.5 - FORMACIÓN ACADÉMICA HORIZONTAL
+   ========================================== */
+
+/* Una tarjeta por fila */
+.education-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 16px;
+}
+
+/* Tarjeta horizontal */
+.education-card {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+    height: auto;
+    align-self: start;
+}
+
+/* Encabezado de cada formación */
+.education-summary {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 12px 24px;
+    padding: 22px 28px;
+}
+
+/* Información principal */
+.education-summary-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: start;
+    column-gap: 24px;
+    row-gap: 8px;
+    min-width: 0;
+}
+
+/* Tipo de formación */
+.education-summary .education-type {
+    grid-column: 1 / -1;
+    margin-bottom: 2px;
+}
+
+/* Título académico */
+.education-summary h3 {
+    grid-column: 1;
+    margin: 0;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+/* Universidad */
+.education-summary .education-institution {
+    grid-column: 1;
+    margin: 0;
+}
+
+/* Periodo a la derecha */
+.education-summary .education-period {
+    grid-column: 2;
+    grid-row: 2 / 4;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    white-space: nowrap;
+}
+
+/* Botón visual del desplegable */
+.education-toggle {
+    width: auto;
+    min-width: 165px;
+    gap: 12px;
+    justify-content: flex-end;
+    white-space: nowrap;
+}
+
+/* Contenido expandido */
+.education-details-content {
+    padding: 0 28px 26px;
+}
+
+.education-details-content .education-works {
+    margin-top: 14px;
+}
+
+/* Pantallas medianas y móviles */
+@media (max-width: 900px) {
+    .education-grid {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .education-summary {
+        grid-template-columns: minmax(0, 1fr);
+        padding: 20px;
+    }
+
+    .education-summary-content {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .education-summary .education-period {
+        grid-column: 1;
+        grid-row: auto;
+    }
+
+    .education-toggle {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .education-details-content {
+        padding: 0 20px 20px;
+    }
+}
+
+
+/* ==========================================
+   87.5 - LISTADO DE ENTIDADES AGRUPADAS
+   ========================================== */
+
+.popup-grupo {
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.popup-grupo[hidden] {
+    display: none;
+}
+
+.popup-grupo h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: #0f172a;
+}
+
+.popup-grupo p {
+    margin: 0 0 12px;
+    font-size: 13px;
+    color: #64748b;
+}
+
+#popup-lista-entidades {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.popup-entidad-btn {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    background: #f8fafc;
+    color: #0f172a;
+    text-align: left;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.popup-entidad-btn:hover {
+    background: #e0f2fe;
+    border-color: #38bdf8;
+}

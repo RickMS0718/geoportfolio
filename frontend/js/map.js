@@ -22,47 +22,62 @@ const entidadesSource = new ol.source.Vector({
          'outputFormat=application/json'
 });
 
+// --------------------------------------------------
+// 2.1. AGRUPACIÓN DE ENTIDADES (CLUSTER)
+// --------------------------------------------------
+
+const clusterSource = new ol.source.Cluster({
+    distance: 40,
+    minDistance: 0,
+    source: entidadesSource
+});
+
+
+
+// --------------------------------------------------
+// 2.2. CAPA DE ENTIDADES AGRUPADAS
+// --------------------------------------------------
 
 const entidadesLayer = new ol.layer.Vector({
-    source: entidadesSource,
 
-    style: new ol.style.Style({
+    source: clusterSource,
+
+    style: function (feature) {
+
+    const entidades = feature.get('features') || [];
+    const cantidad = entidades.length;
+
+    // Color y tamaño según la cantidad de entidades
+    const esGrupo = cantidad > 1;
+
+    return new ol.style.Style({
 
         image: new ol.style.Circle({
-            radius: 8,
+            radius: esGrupo ? 19 : 8,
 
             fill: new ol.style.Fill({
-                color: '#2563eb'
+                color: esGrupo ? '#0f766e' : '#2563eb'
             }),
 
             stroke: new ol.style.Stroke({
                 color: '#ffffff',
-                width: 2
+                width: esGrupo ? 3 : 2
             })
-        })
-
-    })
-});
-
-
-// --------------------------------------------------
-// 3. ESTILO PARA ENTIDADES RESALTADAS
-// --------------------------------------------------
-
-const estiloResaltado = new ol.style.Style({
-    image: new ol.style.Circle({
-        radius: 11,
-
-        fill: new ol.style.Fill({
-            color: '#f59e0b'
         }),
 
-        stroke: new ol.style.Stroke({
-            color: '#ffffff',
-            width: 3
-        })
-    })
+        text: esGrupo
+            ? new ol.style.Text({
+                text: String(cantidad),
+                font: 'bold 15px Arial',
+                fill: new ol.style.Fill({
+                    color: '#ffffff'
+                })
+            })
+            : undefined
+    });
+    }
 });
+
 
 // --------------------------------------------------
 // 3. VISTA INICIAL
@@ -105,6 +120,12 @@ const popupDescripcion = document.getElementById('popup-descripcion');
 const popupTecnologias = document.getElementById('popup-tecnologias');
 const popupConocimientos = document.getElementById('popup-conocimientos');
 const popupClose = document.getElementById('popup-close');
+const popupGrupo = document.getElementById('popup-grupo');
+const popupListaEntidades = document.getElementById('popup-lista-entidades');
+const popupDetalle = document.getElementById('popup-detalle');
+const popupVolver = document.getElementById('popup-volver');
+
+let grupoActual = null;
 
 const popup = new ol.Overlay({
     element: popupElement,
@@ -135,9 +156,143 @@ entidadesSource.on('featuresloadend', function () {
 
 });
 
+
+function mostrarDetalleEntidad(entidadOriginal, coordenada) {
+
+    const propiedades = entidadOriginal.getProperties();
+
+    const idGeoServer = entidadOriginal.getId();
+
+    const entidadId = Number(
+        String(idGeoServer).split('.').pop()
+    );
+
+    const experiencia = experienciasPorEntidad.get(entidadId);
+
+    // Mostrar detalle y ocultar listado
+    popupGrupo.hidden = true;
+    popupDetalle.hidden = false;
+    popupUrl.hidden = false;
+    // Mostrar el botón solo si venimos de un grupo
+    
+    const botonVolver = document.getElementById('popup-volver');
+
+    if (botonVolver) {
+        botonVolver.hidden = grupoActual === null;
+    } else {
+        console.warn('No se encontró el botón popup-volver');
+    }
+
+    // Información de la institución
+    popupNombre.textContent = propiedades.nombre || '';
+
+    popupUbicacion.textContent = [
+        propiedades.ciudad,
+        propiedades.pais
+    ].filter(Boolean).join(', ');
+
+    popupUrl.href = propiedades.url || '#';
+
+    // Información profesional
+    if (experiencia) {
+
+        popupExperiencia.style.display = 'block';
+
+        popupRol.textContent = experiencia.rol || '';
+        popupPeriodo.textContent = experiencia.periodo || '';
+        popupDescripcion.textContent = experiencia.descripcion || '';
+
+        popupTecnologias.replaceChildren();
+
+        (experiencia.tecnologias || []).forEach(tecnologia => {
+            const etiqueta = document.createElement('span');
+            etiqueta.className = 'tecnologia-tag';
+            etiqueta.textContent = tecnologia;
+            popupTecnologias.appendChild(etiqueta);
+        });
+
+        popupConocimientos.replaceChildren();
+
+        (experiencia.conocimientos || []).forEach(conocimiento => {
+            const etiqueta = document.createElement('span');
+            etiqueta.className = 'conocimiento-tag';
+            etiqueta.textContent = conocimiento;
+            popupConocimientos.appendChild(etiqueta);
+        });
+
+    } else {
+        popupExperiencia.style.display = 'none';
+    }
+
+    popupElement.style.display = 'block';
+    popup.setPosition(coordenada);
+}
+
+
+function mostrarGrupoEntidades(entidades, coordenada) {
+
+    // Guardar el grupo para poder regresar al listado
+    grupoActual = {
+        entidades: entidades,
+        coordenada: coordenada
+    };
+
+    // Mostrar el listado y ocultar el detalle
+    popupGrupo.hidden = false;
+    popupDetalle.hidden = true;
+    popupUrl.hidden = true;
+
+    popupListaEntidades.replaceChildren();
+
+    entidades.forEach(entidad => {
+
+        const propiedades = entidad.getProperties();
+
+        const boton = document.createElement('button');
+        boton.type = 'button';
+        boton.className = 'popup-entidad-btn';
+
+        boton.textContent = propiedades.nombre || 'Entidad sin nombre';
+
+        boton.addEventListener('click', function () {
+            mostrarDetalleEntidad(entidad, coordenada);
+        });
+
+        popupListaEntidades.appendChild(boton);
+    });
+
+    popupElement.style.display = 'block';
+    popup.setPosition(coordenada);
+}
+
+if (popupVolver) {
+
+    popupVolver.addEventListener('click', function () {
+
+        if (grupoActual) {
+
+            mostrarGrupoEntidades(
+                grupoActual.entidades,
+                grupoActual.coordenada
+            );
+
+        }
+
+    });
+
+} else {
+
+    console.error(
+        'No se encontró el botón popup-volver en el HTML'
+    );
+
+}
+
+
 // --------------------------------------------------
 // 7. MOSTRAR INFORMACIÓN DE LA ENTIDAD
 // --------------------------------------------------
+
 
 
 map.on('singleclick', function (event) {
@@ -146,116 +301,78 @@ map.on('singleclick', function (event) {
         event.pixel,
         function (feature) {
             return feature;
+        },
+        {
+            layerFilter: function (layer) {
+                return layer === entidadesLayer;
+            },
+            hitTolerance: 5
         }
     );
 
-    if (feature) {
-
-        const propiedades = feature.getProperties();
-
-        // Obtener el ID de la entidad desde GeoServer
-        const idGeoServer = feature.getId();
-
-        const entidadId = Number(
-            String(idGeoServer).split('.').pop()
-        );
-
-        // Buscar la experiencia en los datos de Django
-        const experiencia = experienciasPorEntidad.get(entidadId);
-
-        // Información geográfica
-        popupNombre.textContent = propiedades.nombre;
-
-        popupUbicacion.textContent =
-            propiedades.ciudad + ', ' + propiedades.pais;
-
-        popupUrl.href = propiedades.url || '#';
-
-        // Información profesional
-        if (experiencia) {
-
-            popupExperiencia.style.display = 'block';
-
-            popupRol.textContent = experiencia.rol || '';
-
-            popupPeriodo.textContent = experiencia.periodo || '';
-
-            popupDescripcion.textContent =
-                experiencia.descripcion || '';
-
-            // Tecnologías como etiquetas individuales
-            popupTecnologias.replaceChildren();
-
-            (experiencia.tecnologias || []).forEach(tecnologia => {
-            
-                const etiqueta = document.createElement('span');
-            
-                etiqueta.className = 'tecnologia-tag';
-                etiqueta.textContent = tecnologia;
-            
-                popupTecnologias.appendChild(etiqueta);
-            
-            });
-
-            // -----------------------------------------
-            // Conocimientos como etiquetas individuales
-            // -----------------------------------------
-                    
-            popupConocimientos.replaceChildren();
-                    
-            (experiencia.conocimientos || []).forEach(conocimiento => {
-            
-                const etiqueta = document.createElement('span');
-            
-                etiqueta.className = 'conocimiento-tag';
-                etiqueta.textContent = conocimiento;
-            
-                popupConocimientos.appendChild(etiqueta);
-            
-            });
-
-        } else {
-
-            // Si todavía no se han cargado los datos de Django
-            popupExperiencia.style.display = 'none';
-
-            console.warn(
-                'No se encontró experiencia para la entidad:',
-                entidadId
-            );
-        }
-
-        // Mostrar el popup
-        popupElement.style.display = 'block';
-
-        popup.setPosition(event.coordinate);
-
-    } else {
-
+    // Clic fuera de las entidades
+     if (!feature) {
         popup.setPosition(undefined);
         popupElement.style.display = 'none';
-
+        grupoActual = null;
+        popupVolver.hidden = true;
+        return;
     }
 
+    // Recuperar entidades del cluster
+    const entidadesAgrupadas = feature.get('features') || [];
+
+    if (entidadesAgrupadas.length === 0) {
+        return;
+    }
+
+    // Si hay varias entidades, mostrar el listado
+    if (entidadesAgrupadas.length > 1) {
+
+        mostrarGrupoEntidades(
+            entidadesAgrupadas,
+            feature.getGeometry().getCoordinates()
+        );
+
+        return;
+    }
+
+    // Si hay una sola entidad, mostrar su ficha
+    grupoActual = null;
+    mostrarDetalleEntidad(
+        entidadesAgrupadas[0],
+        feature.getGeometry().getCoordinates()
+    );
+
 });
+
 
 
 // --------------------------------------------------
 // 8. CERRAR POPUP
 // --------------------------------------------------
 
+
 popupClose.addEventListener('click', function () {
 
+    // Cerrar el popup
     popup.setPosition(undefined);
     popupElement.style.display = 'none';
 
+    // Limpiar el grupo seleccionado
+    grupoActual = null;
+
+    // Ocultar el botón de volver
+    popupVolver.hidden = true;
 });
+
 
 // --------------------------------------------------
 // RESALTAR ENTIDADES AL PASAR EL RATÓN
 // --------------------------------------------------
 
 let entidadResaltada = null;
+
 
 map.on('pointermove', function (event) {
 
@@ -264,35 +381,22 @@ map.on('pointermove', function (event) {
     }
 
     const feature = map.forEachFeatureAtPixel(
-            event.pixel,
-            function (feature) {
-                return feature;
+        event.pixel,
+        function (feature) {
+            return feature;
+        },
+        {
+            layerFilter: function (layer) {
+                return layer === entidadesLayer;
             },
-            {
-                layerFilter: function (layer) {
-                    return layer === entidadesLayer;
-                },
-                hitTolerance: 5
-            }
+            hitTolerance: 5
+        }
     );
 
-    // Restaurar el estilo de la entidad anterior
-    if (entidadResaltada && entidadResaltada !== feature) {
-        entidadResaltada.setStyle(undefined);
-    }
-
-    // Resaltar la nueva entidad
-    if (feature && entidadResaltada !== feature) {
-        feature.setStyle(estiloResaltado);
-    }
-
-    entidadResaltada = feature || null;
-
-    // Cambiar el cursor
     map.getTargetElement().style.cursor =
         feature ? 'pointer' : '';
-
 });
+
 
 // --------------------------------------------------
 // 9. CONSULTAR EXPERIENCIAS DESDE DJANGO
